@@ -9,6 +9,7 @@ export class AppComponent implements OnInit {
   selectedSearch = '';
   fitPlaceHolder = '';
   valueForSearch = '';
+  errorMessage = '';
   patients: {
     ID: string;
     First: string;
@@ -55,6 +56,7 @@ export class AppComponent implements OnInit {
     this.valueForSearch = value;
     if (!value) {
       this.patients = this.unsortedPatients;
+      this.errorMessage = '';
     }
   }
 
@@ -133,6 +135,12 @@ export class AppComponent implements OnInit {
         return result.json();
       })
       .then((json) => {
+        if (!json.length) {
+          this.errorMessage = 'No match exists';
+          this.patients = json;
+          return;
+        }
+        this.errorMessage = '';
         this.patients = json;
         if (this.sortType === 'AGE') {
           this.sortByAge();
