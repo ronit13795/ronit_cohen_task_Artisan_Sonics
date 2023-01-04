@@ -1,0 +1,49 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200&display=swap');
+</style>
+
+<div class="container">
+  <div class="search-div">
+  <select #searchBy (change)="onSelectedSearch(searchBy.value)">
+  <option default value="">search by </option>
+  <option value="Id">id</option>
+  <option value="Name"> first name</option>
+  <option value="Last"> last name</option>
+  </select>
+  <input *ngIf="selectedSearch" type="text" [placeholder]="fitPlaceHolder" #filterBy  (input)="filteredBy(filterBy.value)"/>
+  <button (click)="search()"><span>click to search</span></button>
+  </div>
+  <div class="btn-div">
+  <select #sortType (change)="sortBy(sortType.value)">
+    <option value=""> sort by</option>
+    <option value="AGE">AGE</option>
+    <option value="GA"> GA</option>
+  </select>
+  </div>
+  <table class="responsive-table">
+    <thead>
+      <tr>
+        <th >ID</th>
+        <th >FIRST NAME</th>
+        <th >LAST NAME</th>
+        <th > LMP</th>
+        <th > DOB</th>
+        <th > AGE</th>
+        <th >GA</th>
+      </tr>
+    </thead>
+   
+    <tbody>
+      <tr *ngFor="let patient of patients">
+        <th >{{patient.ID}}</th>
+        <td >{{patient.First}}</td>
+        <td >{{patient.Last}}</td>
+        <td  >{{patient.LMP}}</td>
+        <td >{{patient.DOB}}</td>
+        <td >{{patient.Age}}</td>
+        <td >{{patient.GA}}</td>
+      </tr>
+    
+    </tbody>
+  </table>
+</div>
