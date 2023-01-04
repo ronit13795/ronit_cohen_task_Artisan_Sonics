@@ -64,7 +64,12 @@ export class AppComponent implements OnInit {
     this.sortType = type;
     switch (type) {
       case '':
-        this.patients = [...this.unsortedPatients];
+        this.patients = this.unsortedPatients.filter((patient) => {
+          for (const { ID } of this.patients) {
+            if (patient.ID === ID) return true;
+          }
+          return;
+        });
         break;
       case 'AGE':
         this.sortByAge();
@@ -75,25 +80,29 @@ export class AppComponent implements OnInit {
     }
   }
 
+  parseField(value: string, splitBy: string, removeChar: string) {
+    const [first, sec] = value.split(splitBy);
+    const firstNumber = Number(first);
+    const secNumber = Number(sec.replace(removeChar, ''));
+    return [firstNumber, secNumber];
+  }
+
   sortByAge() {
     let patientsCopy = [...this.patients];
     patientsCopy.sort((patientA, patientB) => {
-      let patientAAge = patientA.Age.split('y');
-      let yearsPatientA = Number(patientAAge[0]);
-      let monthsPatientA = Number(patientAAge[1].replace('m', ''));
-      let patientBAge = patientB.Age.split('y');
-      let yearsPatientB = Number(patientBAge[0]);
-      let monthsPatientB = Number(patientBAge[1].replace('m', ''));
-      if (yearsPatientA > yearsPatientB) {
+      const [yearsA, monthsA] = this.parseField(patientA.Age, 'y', 'm');
+      const [yearsB, monthsB] = this.parseField(patientB.Age, 'y', 'm');
+
+      if (yearsA > yearsB) {
         return -1;
       }
-      if (yearsPatientB > yearsPatientA) {
+      if (yearsB > yearsA) {
         return 1;
       }
-      if (monthsPatientA > monthsPatientB) {
+      if (monthsA > monthsB) {
         return -1;
       }
-      if (monthsPatientA < monthsPatientB) {
+      if (monthsA < monthsB) {
         return -1;
       }
       return 0;
@@ -102,24 +111,20 @@ export class AppComponent implements OnInit {
   }
 
   sortByGa() {
-    let patientsCopy = [...this.patients];
+    const patientsCopy = [...this.patients];
     patientsCopy.sort((patientA, patientB) => {
-      let patientAGa = patientA.GA.split('w');
-      let weeksPatientAGa = Number(patientAGa[0]);
-      let daysPatientAGa = Number(patientAGa[1].replace('d', ''));
-      let patientBGa = patientB.GA.split('w');
-      let weeksPatientB = Number(patientBGa[0]);
-      let daysPatientBGa = Number(patientBGa[1].replace('d', ''));
-      if (weeksPatientAGa > weeksPatientB) {
+      const [weeksA, daysA] = this.parseField(patientA.GA, 'w', 'd');
+      const [weeksB, daysB] = this.parseField(patientB.GA, 'w', 'd');
+      if (weeksA > weeksB) {
         return -1;
       }
-      if (weeksPatientB > weeksPatientAGa) {
+      if (weeksB > weeksA) {
         return 1;
       }
-      if (daysPatientAGa > daysPatientBGa) {
+      if (daysA > daysB) {
         return -1;
       }
-      if (daysPatientAGa < daysPatientBGa) {
+      if (daysA < daysB) {
         return -1;
       }
       return 0;
