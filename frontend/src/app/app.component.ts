@@ -27,6 +27,7 @@ export class AppComponent implements OnInit {
     Age: string;
     GA: string;
   }[] = [];
+  sortType = '';
 
   ngOnInit() {
     fetch('http://127.0.0.1:3000/patients/find')
@@ -58,6 +59,7 @@ export class AppComponent implements OnInit {
   }
 
   sortBy(type: string) {
+    this.sortType = type;
     switch (type) {
       case '':
         this.patients = [...this.unsortedPatients];
@@ -132,16 +134,15 @@ export class AppComponent implements OnInit {
       })
       .then((json) => {
         this.patients = json;
+        if (this.sortType === 'AGE') {
+          this.sortByAge();
+        }
+        if (this.sortType === 'GA') {
+          this.sortByGa();
+        }
       })
       .catch((e) => {
         console.log(e);
       });
-    console.log(
-      'clicked',
-      this.selectedSearch,
-      ':חיפוש לפי',
-      this.valueForSearch,
-      'מה לחפש'
-    );
   }
 }
