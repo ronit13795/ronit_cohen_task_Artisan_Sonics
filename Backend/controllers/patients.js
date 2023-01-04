@@ -20,8 +20,6 @@ const find = async (req, res) => {
     }
 
     const data = await db.query({ query });
-    console.log(data);
-    console.log(req.query);
     res.send(data);
   } catch (err) {
     console.log(err);
