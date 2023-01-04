@@ -1,3 +1,5 @@
+
+
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200&display=swap');
 </style>
@@ -20,7 +22,7 @@
     <option value="GA"> GA</option>
   </select>
   </div>
-  <table class="responsive-table">
+  <table *ngIf="patients.length" class="table">
     <thead>
       <tr>
         <th >ID</th>
@@ -46,4 +48,5 @@
     
     </tbody>
   </table>
+  <p class="error-msg" *ngIf="errorMessage">{{errorMessage}}</p>
 </div>

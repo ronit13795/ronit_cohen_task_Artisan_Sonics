@@ -1,3 +1,4 @@
+
 body{
     box-sizing: border-box;
     
@@ -82,8 +83,18 @@ input:focus {
 
 select{
     cursor: pointer;
+    width: 176px;
 }
 
-td{
-   text-align: center;
+
+
+.error-msg {
+    color: #D63301;
+     background-color: #FFCCBA;
+    background-image: url('https://i.imgur.com/GnyDvKN.png');
+    border: 1px solid;
+    margin: 10px 0px;
+     padding: 15px 10px 15px 50px;
+     background-repeat: no-repeat;
+     background-position: 10px center;
 }
