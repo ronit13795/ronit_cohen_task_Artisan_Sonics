@@ -8,19 +8,16 @@ backend and frontend task with interfacing to mysql
  details: {HOST=localhost,USER_NAME=root,DB_PASSWORD=1234,DB_NAME=test} ,you should have db name test ||
  if you want change detailes you can enter into .env file and change the defined data.
  
-[****! if you work with MySQL 8 :
+ 3. enter into \backend\initialScript and run command : node .\script.js 
+ (the script will read the xl file, will calculate AGE and GA, create name table "patients" and insert all data to mysql. 
+ [****! if you work with MySQL 8 :
  AND an error occurred  please Execute the following query in MYSQL Workbench:
  
  ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'yourpassword'; 
- 
  flush privileges;
  
  and then try run again script with node,it should work now:)!****]
  
-
-
- 3. enter into \backend\initialScript and run command : node .\script.js 
- (the script will read the xl file, will calculate AGE and GA, create name table "patients" and insert all data to mysql.
  
  4. go to path ronit_cohen_task_Artisan_Sonics\frontend> and run command npm i
  
